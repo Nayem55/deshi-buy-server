@@ -9,7 +9,6 @@ const categories = [
   { name: 'মধু ও প্রাকৃতিক তেল', slug: 'honey-natural-oils', description: 'প্রাকৃতিক মধু ও ঐতিহ্যবাহী তেলের সংগ্রহ', image: 'https://ahmadfoodbd.com/wp-content/uploads/2024/09/ahmad-Combo-1-1.jpg', order: 4 },
   { name: 'ড্রাই ফ্রুটস বাদাম ও খেজুর', slug: 'dry-fruits-nuts-dates', description: 'নাশতা, অতিথি আপ্যায়ন ও উপহারের জন্য প্রিমিয়াম সংগ্রহ', image: 'https://jazzdates.in/benefits_display.png', order: 5 },
   { name: 'ঘি ও দেশি মিষ্টি', slug: 'ghee-dairy-traditional-sweets', description: 'ঐতিহ্যবাহী স্বাদের ঘি, মিষ্টি ও সেমাই', image: 'https://www.arogga.com/_next/image?q=75&url=https%3A%2F%2Fcdn2.arogga.com%2FeyJidWNrZXQiOiJhcm9nZ2EiLCJrZXkiOiJQcm9kdWN0LXBfaW1hZ2VzXC85MTEyNVwvOTExMjUtTGFjaGNoYS1zaGVtYWktMS1jNnlkZnAud2VicCIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTAwMCwiaGVpZ2h0IjoxMDAwLCJmaXQiOiJvdXRzaWRlIn0sIm92ZXJsYXlXaXRoIjp7ImJ1Y2tldCI6Im1pc2NcL3dtLnBuZyIsImFscGhhIjo5MH19fQ%3D%3D&w=1280', order: 6 },
-  { name: 'ফ্যাশন ও উপহার সামগ্রী', slug: 'fashion-gift-items', description: 'দেশি পোশাক, হাতে তৈরি সামগ্রী, গিফট বক্স ও উৎসবের উপহার', image: '', order: 7 },
 ];
 
 const products = [
@@ -48,6 +47,43 @@ const products = [
   ['চাঁপাইনবাবগঞ্জের রসকদম', 'chapainawabganj-roshkodom', 'ghee-dairy-traditional-sweets', 420, 'উৎসব, অতিথি আপ্যায়ন ও উপহারের জন্য চাঁপাইনবাবগঞ্জের পরিচিত রসকদম।', false, false, 'https://www.arogga.com/_next/image?q=75&url=https%3A%2F%2Fcdn2.arogga.com%2FeyJidWNrZXQiOiJhcm9nZ2EiLCJrZXkiOiJQcm9kdWN0LXBfaW1hZ2VzXC85MTEyNVwvOTExMjUtTGFjaGNoYS1zaGVtYWktMS1jYnlkZnAud2VicCIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTAwMCwiaGVpZ2h0IjoxMDAwLCJmaXQiOiJvdXRzaWRlIn0sIm92ZXJsYXlXaXRoIjp7ImJ1Y2tldCI6Im1pc2NcL3dtLnBuZyIsImFscGhhIjo5MH19fQ%3D%3D&w=1280', ['৬ পিস', '১২ পিস', '১ কেজি']],
   ['ঘিয়ে ভাজা লাচ্চা সেমাই', 'ghee-fried-lachcha-semai', 'ghee-dairy-traditional-sweets', 300, 'ঈদ, উৎসব ও পারিবারিক আয়োজনের জন্য সুগন্ধি ঘিয়ে ভাজা লাচ্চা সেমাই।', true, false, 'https://www.arogga.com/_next/image?q=75&url=https%3A%2F%2Fcdn2.arogga.com%2FeyJidWNrZXQiOiJhcm9nZ2EiLCJrZXkiOiJQcm9kdWN0LXBfaW1hZ2VzXC85MTEyNVwvOTExMjUtTGFjaGNoYS1zaGVtYWktMS1jNnlkZnAud2VicCIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MTAwMCwiaGVpZ2h0IjoxMDAwLCJmaXQiOiJvdXRzaWRlIn0sIm92ZXJsYXlXaXRoIjp7ImJ1Y2tldCI6Im1pc2NcL3dtLnBuZyIsImFscGhhIjo5MH19fQ%3D%3D&w=1280', ['২০০ গ্রাম', '৪০০ গ্রাম', '৫০০ গ্রাম']],
 ];
+
+const productDescriptions = {
+  'gopalbhog-aam': 'গোপালভোগ আম তার মিষ্টি ঘ্রাণ, নরম শাঁস ও মোলায়েম স্বাদের জন্য গ্রীষ্মের খুবই জনপ্রিয় জাত। পরিবারের সঙ্গে খাওয়া, আমের শরবত বা ঠান্ডা ডেজার্ট তৈরির জন্য এটি দারুণ পছন্দ।',
+  'himsagor-aam': 'হিমসাগর বা ক্ষীরসাপাত আম আঁশ কম, শাঁস বেশি এবং স্বাদে ঘন মিষ্টি। সরাসরি খাওয়া, মিল্কশেক বা অতিথি আপ্যায়নের ফলের প্লেটের জন্য এর সুগন্ধি স্বাদ অসাধারণ।',
+  'langra-aam': 'ল্যাংড়া আমের পরিচিতি তার রসালো শাঁস, মনভোলানো ঘ্রাণ ও মিষ্টি-টক ভারসাম্যের স্বাদে। মৌসুমের তাজা ফল হিসেবে খাওয়া বা ঘরে আমের জুস তৈরির জন্য উপযোগী।',
+  'amrapali-aam': 'আম্রপালি আম আকারে তুলনামূলক ছোট হলেও শাঁস ঘন, আঁশ কম এবং মিষ্টতা বেশি। লাঞ্চবক্স, পারিবারিক নাশতা বা ঠান্ডা আমের ডেজার্টে সহজে পরিবেশনের জন্য চমৎকার।',
+  'fazli-aam': 'ফজলি আম বড় আকার, পুরু শাঁস ও দীর্ঘস্থায়ী সুস্বাদের জন্য পরিচিত। পরিবারের জন্য কাটাকুটি করে পরিবেশন, আমসত্ত্ব বা ঘরোয়া জ্যাম তৈরিতেও এটি ভালো কাজ করে।',
+  'katimon-aam': 'কাটিমন আমের মিষ্টি স্বাদ, কম আঁশ এবং আকর্ষণীয় হলুদাভ শাঁস এটিকে বিশেষ করে তোলে। মৌসুমে টাটকা খাওয়ার পাশাপাশি শরবত, স্মুদি ও ডেজার্টের জন্যও উপযুক্ত।',
+  'bari-4-aam': 'বারি ৪ আম বাংলাদেশ কৃষি গবেষণার উন্নত জাতগুলোর একটি, যার শাঁস নরম ও স্বাদ সুন্দর মিষ্টি। দৈনন্দিন পারিবারিক ফলের চাহিদা ও অতিথি আপ্যায়নের জন্য এটি নির্ভরযোগ্য পছন্দ।',
+  'harivanga-aam': 'হাড়িভাংগা আমের ঘন শাঁস, কম আঁশ এবং প্রাকৃতিক মিষ্টতা উত্তরবঙ্গের মৌসুমি ফলপ্রেমীদের কাছে খুব জনপ্রিয়। ঠান্ডা করে খেলে এর স্বাদ ও গন্ধ আরও উপভোগ্য লাগে।',
+  'gouromoti-aam': 'গৌড়মতি আম মৌসুমের শেষ ভাগের মিষ্টি ও রসালো একটি পছন্দের জাত। পরিবারের সঙ্গে ভাগ করে খাওয়া, ফলের সালাদ বা ঘরে তৈরি আমের পানীয়ের জন্য সুন্দর।',
+  'banana-mango': 'ব্যানানা ম্যাংগো লম্বাটে গড়ন, সুগন্ধি শাঁস ও নরম মিষ্টি স্বাদের জন্য পরিচিত। সহজে কেটে পরিবেশন করা যায় এবং বাচ্চাদের নাশতা বা স্মুদির জন্যও ভালো।',
+  'khejurer-patali-gur': 'খাঁটি খেজুরের রস জ্বাল দিয়ে তৈরি পাটালি গুড়ের স্বাদ গাঢ়, সুগন্ধি ও ঐতিহ্যবাহী। পিঠা, পায়েস, ক্ষীর, চা কিংবা শীতের নানান ঘরোয়া মিষ্টান্নে ব্যবহার করতে পারেন।',
+  'khejurer-jhola-gur': 'খেজুরের ঝোলা গুড়ের ঘন তরল মিষ্টতা পিঠা, পুলি, পায়েস ও দুধের সঙ্গে চমৎকার মানিয়ে যায়। শীতের সকালের নাশতা বা ঘরে তৈরি ডেজার্টে দেশি স্বাদের উষ্ণতা যোগ করে।',
+  'khejurer-norom-danadar-gur': 'নরম দানাদার খেজুরের গুড়ের গঠন নরম, দানাদার এবং স্বাদে গভীর ক্যারামেলি মিষ্টতা আছে। পিঠা, মুড়ি, রুটি বা গরম দুধের সঙ্গে পরিবেশনের জন্য উপযোগী।',
+  'khejurer-chocolate-gur': 'খেজুরের চকলেট গুড় ঐতিহ্যবাহী গুড়ের মিষ্টতার সঙ্গে সমৃদ্ধ চকলেটি স্বাদের একটি ভিন্নধর্মী আয়োজন। নাশতা, ডেজার্ট বা উপহার হিসেবে পরিবেশন করতে পারেন।',
+  'homemade-turmeric-powder': 'নির্বাচিত শুকনা হলুদ থেকে প্রস্তুত ঘরোয়া হলুদের গুঁড়া প্রতিদিনের মাছ, মাংস, ডাল ও সবজি রান্নায় রং ও উষ্ণ স্বাদ যোগ করে। শুকনা, ঠান্ডা জায়গায় বায়ুরোধী পাত্রে রাখলে গুণগত মান ভালো থাকে।',
+  'homemade-chili-powder': 'বাছাই করা শুকনা মরিচ থেকে তৈরি এই গুঁড়া রান্নায় ঝাল ও রঙের সুন্দর ভারসাম্য আনে। ভর্তা, ভুনা, ঝোল কিংবা মেরিনেশনে প্রয়োজনমতো ব্যবহার করুন।',
+  'homemade-coriander-powder': 'সুগন্ধি ধনিয়ার বীজ গুঁড়া করে তৈরি এই মসলা মাছ, মাংস, ডাল ও সবজি রান্নার স্বাদ বাড়ায়। রান্নার শেষ দিকে ব্যবহার করলে এর প্রাকৃতিক সুবাস আরও ভালোভাবে পাওয়া যায়।',
+  'natural-honeycomb-honey': 'প্রাকৃতিক চাকের মধুতে ফুলের উৎস ও মৌসুমভেদে রং, ঘনত্ব ও স্বাদে স্বাভাবিক ভিন্নতা থাকতে পারে। রুটি, দই, ফল, চা বা দৈনন্দিন খাবারে প্রাকৃতিক মিষ্টতা যোগ করতে ব্যবহার করুন।',
+  'wooden-ghani-mustard-oil': 'কাঠের ঘানিতে ভাঙানো সরিষার তেল বাঙালি রান্নার পরিচিত ঝাঁঝ ও সুগন্ধ দেয়। ভর্তা, আচার, মাছ ভাজা ও ভুনা রান্নায় ব্যবহার করে ঘরোয়া স্বাদ উপভোগ করুন।',
+  'cold-pressed-coconut-oil': 'নির্বাচিত নারিকেল থেকে কোল্ড প্রেসড পদ্ধতিতে প্রস্তুত এই তেলে নারিকেলের স্বাভাবিক গন্ধ ও স্বাদ বজায় থাকে। ব্যবহার করার আগে প্যাকের নির্দেশনা দেখুন এবং ঠান্ডা, শুকনা স্থানে সংরক্ষণ করুন।',
+  'mixed-dry-fruits': 'বাদাম ও ড্রাই ফ্রুটসের বাছাই করা মিশ্রণ ব্যস্ত দিনের নাশতা, ভ্রমণ বা অতিথি আপ্যায়নের জন্য উপযোগী। দই, ওটস, সালাদ বা ডেজার্টের সঙ্গে মিশিয়েও খেতে পারেন।',
+  'cashew-nuts': 'মোলায়েম গঠন ও মৃদু মিষ্টি স্বাদের কাজুবাদাম নাশতা, পোলাও, কোরমা ও ডেজার্টে ব্যবহার করা যায়। পরিবেশনের আগে হালকা ভেজে নিলে এর সুগন্ধ ও কচকচে ভাব আরও বাড়ে।',
+  'almonds': 'কাঠবাদাম কচকচে গঠন ও মৃদু বাদামি স্বাদের জন্য দৈনন্দিন নাশতার পরিচিত পছন্দ। সালাদ, ওটস, স্মুদি বা বেকিংয়ের টপিং হিসেবে ব্যবহার করতে পারেন।',
+  'walnuts': 'আখরোটের স্বতন্ত্র স্বাদ ও কচকচে গঠন নাশতা, সালাদ ও বেকিংয়ের সঙ্গে ভালো মানায়। বায়ুরোধী পাত্রে রাখলে এর স্বাভাবিক সতেজতা দীর্ঘদিন বজায় থাকে।',
+  'mabroom-dates': 'মাবরুম খেজুর লম্বাটে গড়ন, নরম চিবোনো গঠন ও পরিমিত মিষ্টতার জন্য জনপ্রিয়। ইফতার, সকালের নাশতা বা অতিথি আপ্যায়নের জন্য সুন্দর একটি প্রিমিয়াম পছন্দ।',
+  'sukkari-dates': 'সুক্কারি খেজুর প্রাকৃতিক মিষ্টি স্বাদ ও নরম, মোলায়েম গঠনের জন্য পরিচিত। চা-কফির সঙ্গে, ইফতারে বা দ্রুত শক্তির নাশতা হিসেবে পরিবেশন করতে পারেন।',
+  'mariam-dates': 'মরিয়ম খেজুরের স্বাদ মৃদু মিষ্টি এবং গঠন নরম ও আরামদায়ক। প্রতিদিনের নাশতা, ইফতার কিংবা ফল ও বাদামের প্ল্যাটারের সঙ্গে পরিবেশনের জন্য উপযোগী।',
+  'ajwa-dates': 'আজওয়া খেজুর গাঢ় রং, স্বতন্ত্র সুগন্ধ ও সমৃদ্ধ স্বাদের জন্য প্রিমিয়াম খেজুর হিসেবে পরিচিত। ইফতার, উপহার বা দৈনন্দিন পরিমিত নাশতায় এটি বিশেষ পছন্দ।',
+  'medjool-dates': 'মেডজুল খেজুর আকারে বড়, নরম ও রসালো গঠনের সঙ্গে ক্যারামেলি মিষ্টি স্বাদ দেয়। স্ন্যাকস, চিজ প্ল্যাটার, স্মুদি বা ডেজার্টে প্রাকৃতিক মিষ্টতা যোগ করতে ব্যবহার করুন।',
+  'honey-nuts': 'মধুতে প্রস্তুত বাদামের এই মিশ্রণ মিষ্টি, কচকচে ও সহজে পরিবেশনযোগ্য নাশতা। চা-কফির সঙ্গে, দইয়ের টপিং হিসেবে বা ছোট উপহার হিসেবেও দারুণ।',
+  'gawa-ghee': 'গাওয়া ঘি ভাত, খিচুড়ি, পোলাও, হালুয়া ও পায়েসে সমৃদ্ধ সুগন্ধ ও ঐতিহ্যবাহী স্বাদ যোগ করে। পরিষ্কার, শুকনা চামচ ব্যবহার করে ঢাকনা বন্ধ অবস্থায় সংরক্ষণ করুন।',
+  'chapainawabganj-pera-pata-sandesh': 'চাঁপাইনবাবগঞ্জের প্যাড়া পাতা সন্দেশ নরম গঠন, হালকা মিষ্টতা ও ঐতিহ্যবাহী পরিবেশনের জন্য পরিচিত। অতিথি আপ্যায়ন, উৎসব বা পরিবারের সঙ্গে মিষ্টিমুখে সুন্দর পছন্দ।',
+  'chapainawabganj-roshkodom': 'চাঁপাইনবাবগঞ্জের রসকদমে নরম মিষ্টির ভেতরে রসালো স্বাদের মজার অভিজ্ঞতা পাওয়া যায়। ঘরোয়া আয়োজন, অতিথি আপ্যায়ন ও উৎসবের মিষ্টির প্ল্যাটারে পরিবেশন করতে পারেন।',
+  'ghee-fried-lachcha-semai': 'ঘিয়ে ভাজা লাচ্চা সেমাইয়ের সুগন্ধি স্তর ও মুচমুচে গঠন উৎসবের ডেজার্টকে আরও আনন্দময় করে। গরম দুধ, বাদাম ও কিশমিশের সঙ্গে রান্না করে পরিবেশন করুন।',
+};
 
 // Every item has a gallery of at least two online photos. The date-palm jaggery
 // sources below are plain product photos without seller text in the image.
@@ -89,7 +125,7 @@ async function main() {
     for (const [name, slug, categorySlug, price, description, isTrending, isBestSeller, image, sizes = ['১ কেজি']] of products) {
       await db.collection('products').updateOne(
         { slug },
-        { $set: { name, slug, description, shortDescription: 'খাঁটি ও প্রাকৃতিক দেশি পণ্য', price, regularPrice: price, salePrice: null, comparePrice: null, isOnSale: false, images: galleryFor(categorySlug, image), category: categoryIds[categorySlug], categories: [categoryIds[categorySlug]], subcategory: '', subcategories: [], brand: '', sizes: [], colors: [], weightVariations: weightVariationsFor(price), stock: 50, tags: [categorySlug, 'deshi-buy', 'price-review'], isTrending, isFeatured: isTrending, isBestSeller, isNew: true, isBridal: false, isActive: true, updatedAt: now }, $setOnInsert: { createdAt: now } },
+        { $set: { name, slug, description: productDescriptions[slug] || description, shortDescription: 'খাঁটি ও প্রাকৃতিক দেশি পণ্য', price, regularPrice: price, salePrice: null, comparePrice: null, isOnSale: false, images: galleryFor(categorySlug, image), category: categoryIds[categorySlug], categories: [categoryIds[categorySlug]], subcategory: '', subcategories: [], brand: '', sizes: [], colors: [], weightVariations: weightVariationsFor(price), stock: 50, tags: [categorySlug, 'deshi-buy', 'price-review'], isTrending, isFeatured: isTrending, isBestSeller, isNew: true, isBridal: false, isActive: true, updatedAt: now }, $setOnInsert: { createdAt: now } },
         { upsert: true }
       );
     }
