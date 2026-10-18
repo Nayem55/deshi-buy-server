@@ -404,10 +404,10 @@ async function seedSettings() {
       headerCategoryMenu: { enabled: true, label: 'Categories', showEmptyCategories: true },
       headerBrandMenu: { enabled: true, label: 'Brands' },
       navLinks: [
-        { label: 'নতুন পণ্য', url: '/shop?isNew=true', active: true, accent: false },
-        { label: 'জনপ্রিয়', url: '/shop?isTrending=true', active: true, accent: false },
-        { label: 'সেরা বিক্রি', url: '/shop?isBestSeller=true', active: true, accent: false },
-        { label: 'মৌসুমি পণ্য', url: '/shop', active: true, accent: true },
+        { label: 'New Products', url: '/shop?isNew=true', active: true, accent: false },
+        { label: 'Discount Products', url: '/shop?isOnSale=true', active: true, accent: true },
+        { label: 'Best Sellers', url: '/shop?isBestSeller=true', active: true, accent: false },
+        { label: 'Seasonal Products', url: '/shop?isSeasonal=true', active: true, accent: true },
       ],
       createdAt: new Date(),
     });
@@ -546,7 +546,7 @@ app.patch('/api/admin/staff/:id', adminAuth, async (req, res) => {
 app.get('/api/products', async (req, res) => {
   try {
     const db = getDB();
-    const { page = 1, limit = 20, category, subcategory, brand, search, q, minPrice, maxPrice, sort, isTrending, isNew, isBestSeller, isFeatured, isBridal, weight } = req.query;
+    const { page = 1, limit = 20, category, subcategory, brand, search, q, minPrice, maxPrice, sort, isTrending, isNew, isBestSeller, isFeatured, isBridal, isOnSale, isSeasonal, weight } = req.query;
     const searchTerm = (search || q || '').trim();
     const filter = { isActive: true };
     if (category) {
@@ -574,6 +574,8 @@ app.get('/api/products', async (req, res) => {
     if (isBestSeller === 'true') filter.isBestSeller = true;
     if (isFeatured === 'true') filter.isFeatured = true;
     if (isBridal === 'true') filter.isBridal = true;
+    if (isOnSale === 'true') filter.isOnSale = true;
+    if (isSeasonal === 'true') filter.isSeasonal = true;
     if (weight) {
       const requestedWeights = String(weight).split(',').map((item) => item.trim()).filter(Boolean);
       if (requestedWeights.length) filter['weightVariations.type'] = { $in: requestedWeights };
@@ -692,24 +694,41 @@ app.get('/api/admin/products', adminAuth, async (req, res) => {
 
 const cleanText = (value) => (typeof value === 'string' ? value.trim() : '');
 
+// Store the numeric amount and unit separately while retaining `type` for older
+// storefront/cart records that identify a variation by its display label.
+const normalizeWeightVariations = (variations) => Array.isArray(variations)
+  ? variations
+      .map((variation) => {
+        if (!variation) return null;
+        const quantity = Number(variation.quantity);
+        const unit = cleanText(variation.unit).toLowerCase();
+        const type = quantity > 0 && ['kg', 'gm', 'litre', 'ml'].includes(unit)
+          ? `${quantity} ${unit}`
+          : cleanText(variation.type);
+        if (!type) return null;
+        const price = Number(variation.price) || 0;
+        const salePrice = variation.salePrice ? Number(variation.salePrice) : null;
+        return {
+          type,
+          ...(quantity > 0 ? { quantity } : {}),
+          ...(unit ? { unit } : {}),
+          price,
+          salePrice,
+          isOnSale: Boolean(variation.isOnSale && salePrice && salePrice > 0 && salePrice < price),
+        };
+      })
+      .filter(Boolean)
+  : [];
+
 app.post('/api/admin/products', adminAuth, async (req, res) => {
   try {
     const db = getDB();
-    const { name, description, additionalNote, images, brand, stock, tags, isTrending, isFeatured, isBestSeller, isNew, isBridal, weightVariations } = req.body;
+    const { name, description, additionalNote, images, brand, stock, tags, isTrending, isFeatured, isBestSeller, isNew, isBridal, isSeasonal, weightVariations } = req.body;
     const pricing = pricingFromInput(req.body);
     const taxonomy = await normalizeProductTaxonomy(db, req.body);
     if (!name || !pricing.regularPrice) return res.status(400).json({ error: 'Name and regular price required' });
 
-    const processedVariations = Array.isArray(weightVariations)
-      ? weightVariations
-          .filter((v) => v && v.type && v.type.trim())
-          .map((v) => ({
-            type: v.type.trim(),
-            price: Number(v.price) || 0,
-            salePrice: v.salePrice ? Number(v.salePrice) : null,
-            isOnSale: Boolean(v.isOnSale && v.salePrice && Number(v.salePrice) > 0 && Number(v.salePrice) < Number(v.price)),
-          }))
-      : [];
+    const processedVariations = normalizeWeightVariations(weightVariations);
 
     const product = {
       name, slug: slugify(name) + '-' + Date.now().toString(36), description: description || '', additionalNote: cleanText(additionalNote),
@@ -717,7 +736,7 @@ app.post('/api/admin/products', adminAuth, async (req, res) => {
       ...taxonomy,
       images: images || [], brand: brand || '',
       sizes: [], colors: [], stock: stock || 0, tags: tags || [],
-      isTrending: !!isTrending, isFeatured: !!isFeatured, isBestSeller: !!isBestSeller, isNew: isNew !== false, isBridal: !!isBridal,
+      isTrending: !!isTrending, isFeatured: !!isFeatured, isBestSeller: !!isBestSeller, isNew: isNew !== false, isBridal: !!isBridal, isSeasonal: !!isSeasonal,
       weightVariations: processedVariations,
       isActive: true, createdAt: new Date(),
     };
@@ -807,6 +826,7 @@ app.post('/api/admin/products/import', adminAuth, async (req, res) => {
           isFeatured: row.IsFeatured === 'true' || row.IsFeatured === '1',
           isBestSeller: row.IsBestSeller === 'true' || row.IsBestSeller === '1',
           isBridal: row.IsBridal === 'true' || row.IsBridal === '1',
+          isSeasonal: row.IsSeasonal === 'true' || row.IsSeasonal === '1',
           isActive: true,
           createdAt: new Date(),
         };
@@ -884,16 +904,7 @@ app.put('/api/admin/products/:id', adminAuth, async (req, res) => {
     const hasTaxonomyUpdate = ['category', 'categories', 'subcategory', 'subcategories'].some((key) => Object.prototype.hasOwnProperty.call(update, key));
     if (hasTaxonomyUpdate) Object.assign(update, await normalizeProductTaxonomy(db, update));
 
-    if (Array.isArray(update.weightVariations)) {
-      update.weightVariations = update.weightVariations
-        .filter((v) => v && v.type && v.type.trim())
-        .map((v) => ({
-          type: v.type.trim(),
-          price: Number(v.price) || 0,
-          salePrice: v.salePrice ? Number(v.salePrice) : null,
-          isOnSale: Boolean(v.isOnSale && v.salePrice && Number(v.salePrice) > 0 && Number(v.salePrice) < Number(v.price)),
-        }));
-    }
+    if (Array.isArray(update.weightVariations)) update.weightVariations = normalizeWeightVariations(update.weightVariations);
     delete update.stitchVariations;
     update.sizes = [];
     update.colors = [];
